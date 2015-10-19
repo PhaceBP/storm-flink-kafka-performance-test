@@ -19,7 +19,7 @@ ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 RUN git clone https://PhaceBP:admin123@github.com/PhaceBP/storm-flink-kafka-performance-test.git /workspace
 
 # Step into the project root dir
-RUN cd /workspace/storm-flink-kafka-performance-test
+RUN /bin/sh -c 'cd /workspace/storm-flink-kafka-performance-test'
 
 # Print the current directory
 RUN pwd
