@@ -24,6 +24,9 @@ WORKDIR "/workspace/storm-flink-kafka-performance-test"
 # Print the current directory
 RUN pwd
 
+# Print the current directory content
+RUN dir
+
 # Clean and build the project
 RUN mvn clean install
 
