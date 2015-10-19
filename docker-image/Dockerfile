@@ -16,10 +16,13 @@ RUN apt-get install -y maven
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
 # Pull project from GitHub
-RUN git clone https://PhaceBP:Creamer19861@github.com/PhaceBP/storm-flink-kafka-performance-test.git /home
+RUN git clone https://PhaceBP:admin123@github.com/PhaceBP/storm-flink-kafka-performance-test.git /home
 
 # Step into the project root dir
 CMD ["cd", "/home/storm-flink-kafka-performance-test"]
+
+# Print the current directory
+RUN pwd
 
 # Clean and build the project
 RUN mvn clean install
