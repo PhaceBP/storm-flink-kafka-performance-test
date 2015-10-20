@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.nventdata.pipeline</groupId>
-		<artifactId>parent</artifactId>
+		<artifactId>storm-flink-kafka-performance-test</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>storm-kafka-implementation</artifactId>
