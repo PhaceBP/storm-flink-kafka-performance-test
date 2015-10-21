@@ -21,9 +21,6 @@ RUN git clone https://PhaceBP:admin123@github.com/PhaceBP/storm-flink-kafka-perf
 # Step into the project root dir 
 WORKDIR "/storm-flink-kafka-performance-test"
 
-# Print the current directory
-RUN pwd
-
 # Clean and build the project
 RUN mvn clean install
 

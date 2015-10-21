@@ -1,0 +1,9 @@
+{"namespace": "com.nventdata.pipeline.avro.model",
+ "type": "record",
+ "name": "NventMessage",
+ "fields": [
+     {"name": "id", "type": "int"},
+     {"name": "random",  "type": "int"},
+     {"name": "data", "type": "string"}
+ ]
+}
