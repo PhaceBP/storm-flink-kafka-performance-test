@@ -1,9 +1,15 @@
 package com.nventdata.pipeline.storm.bolt;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+
+import org.apache.avro.io.BinaryDecoder;
+import org.apache.avro.io.DatumReader;
+import org.apache.avro.io.DecoderFactory;
+import org.apache.avro.specific.SpecificDatumReader;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import com.nventdata.pipeline.avro.model.NventMessage;
 import com.nventdata.pipeline.kafka.producer.KafkaAvroMessageProducer;
@@ -13,15 +19,11 @@ import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.topology.base.BaseBasicBolt;
 import backtype.storm.tuple.Tuple;
 
-@Component
 public class KafkaMessageForwarderBolt extends BaseBasicBolt {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	@Autowired
-	private transient KafkaAvroMessageProducer producer;
 
 	public static final Logger LOG = LoggerFactory.getLogger(KafkaMessageForwarderBolt.class);
 
@@ -34,11 +36,23 @@ public class KafkaMessageForwarderBolt extends BaseBasicBolt {
 
 		LOG.info("Message received: " + tuple.toString());
 
-		Integer random = tuple.getIntegerByField("random");
+		String avroMessage = (String) tuple.getString(0);
+		NventMessage deserializedMessage = null;
+		try {
+			
+			DatumReader<NventMessage> datumReader = new SpecificDatumReader<NventMessage>(NventMessage.SCHEMA$);
+			ByteArrayInputStream stream = new ByteArrayInputStream(avroMessage.getBytes());
+			BinaryDecoder binaryDecoder = DecoderFactory.get().binaryDecoder(stream, null);
+			deserializedMessage = datumReader.read(null, binaryDecoder);
+			IOUtils.closeQuietly(stream);
+		} catch (IOException ex) {
+			LOG.error("Error occured while deserializing message : " + ex.getMessage());
+			return;
+		}
 
 		String topicName = null;
 
-		switch (random) {
+		switch (deserializedMessage.getRandom()) {
 
 		case 1:
 			topicName = "random1";
@@ -53,10 +67,7 @@ public class KafkaMessageForwarderBolt extends BaseBasicBolt {
 			throw new IllegalArgumentException("Random value from the message must beetween 1 and 3");
 		}
 
-		NventMessage forwardedMessage = NventMessage.newBuilder().setId(tuple.getIntegerByField("id"))
-				.setData(tuple.getStringByField("data")).setRandom(random).build();
-
-		producer.publish(forwardedMessage, topicName);
+		KafkaAvroMessageProducer.publish(deserializedMessage, topicName);
 
 	}
 

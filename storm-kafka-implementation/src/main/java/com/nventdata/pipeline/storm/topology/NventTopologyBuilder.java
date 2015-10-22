@@ -21,9 +21,6 @@ import storm.kafka.ZkHosts;
 public class NventTopologyBuilder {
 	
 	@Autowired
-	private KafkaMessageForwarderBolt bolt;
-	
-	@Autowired
 	private ApplicationConfig config;
 	
 	private BrokerHosts brokerHosts;
@@ -38,7 +35,7 @@ public class NventTopologyBuilder {
         kafkaConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
         TopologyBuilder builder = new TopologyBuilder();
         builder.setSpout("datas", new KafkaSpout(kafkaConfig), 10);
-        builder.setBolt("forward", bolt).shuffleGrouping("datas");
+        builder.setBolt("forward", new KafkaMessageForwarderBolt()).shuffleGrouping("datas");
         return builder.createTopology();
     }
 
