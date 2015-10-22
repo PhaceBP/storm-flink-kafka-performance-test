@@ -23,7 +23,8 @@ RUN wget "http://mirror.cc.columbia.edu/pub/software/apache/kafka/0.8.2.2/kafka_
 # Extract the archive
 RUN tar -xvzf /kafka.tgz --strip 1
 
-nohup /kafka/bin/kafka-server-start.sh /kafka/config/server.properties > /kafka/kafka.log 2>&1 &
+# Extract the archive
+RUN nohup /kafka/bin/kafka-server-start.sh /kafka/config/server.properties > /kafka/kafka.log 2>&1 &
 
 # Pull project from GitHub
 RUN git clone https://PhaceBP:admin123@github.com/PhaceBP/storm-flink-kafka-performance-test.git
