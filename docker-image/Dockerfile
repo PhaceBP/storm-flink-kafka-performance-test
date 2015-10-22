@@ -11,6 +11,7 @@ RUN apt-get update
 RUN apt-get install -y openjdk-7-jdk
 RUN apt-get install -y git
 RUN apt-get install -y maven
+RUN apt-get install -y wget
 RUN apt-get install -y zookeeperd
 
 # Set JAVA_HOME environment variable
