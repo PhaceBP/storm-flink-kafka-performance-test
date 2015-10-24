@@ -27,11 +27,10 @@ public class Application {
 		kafkaProperties.put("metadata.broker.list", "localhost:9092");
 		kafkaProperties.put("serializer.class", "kafka.serializer.DefaultEncoder");
 		kafkaProperties.put("client.id", "nvent");
+		config.registerSerialization(NventMessage.class, NventMessageSerializer.class);
 		config.put(KafkaBolt.KAFKA_BROKER_PROPERTIES, kafkaProperties);
-
 		config.setNumWorkers(2);
 		config.setMaxTaskParallelism(2);
-		config.registerSerialization(NventMessage.class, NventMessageSerializer.class);
 
 		LocalCluster cluster = new LocalCluster();
 		NventTopologyBuilder topologyBuilder = ctx.getBean(NventTopologyBuilder.class);
