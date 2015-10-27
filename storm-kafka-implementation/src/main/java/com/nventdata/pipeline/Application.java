@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.nventdata.pipeline.avro.model.NventMessage;
-import com.nventdata.pipeline.storm.serializer.NventMessageSerializer;
+import com.nventdata.pipeline.avro.serializer.NventMessageSerializer;
 import com.nventdata.pipeline.storm.topology.NventTopologyBuilder;
 
 import backtype.storm.Config;

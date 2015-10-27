@@ -5,7 +5,7 @@
 	<artifactId>storm-flink-kafka-performance-test</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>This is a parent project of NventData home test project.</name>
+	<name>Parent project for aggregating submodules</name>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -61,5 +61,6 @@
 	<modules>
 		<module>storm-kafka-implementation</module>
 		<module>flink-kafka-implementation</module>
+		<module>common-resources</module>
 	</modules>
 </project>

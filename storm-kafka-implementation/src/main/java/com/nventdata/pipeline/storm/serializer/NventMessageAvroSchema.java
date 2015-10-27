@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import com.esotericsoftware.kryo.io.Input;
 import com.nventdata.pipeline.avro.model.NventMessage;
+import com.nventdata.pipeline.avro.serializer.NventMessageSerializer;
 
 import backtype.storm.spout.Scheme;
 import backtype.storm.tuple.Fields;
