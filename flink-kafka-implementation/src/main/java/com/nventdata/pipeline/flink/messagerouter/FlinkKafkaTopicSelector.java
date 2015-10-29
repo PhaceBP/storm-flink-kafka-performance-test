@@ -7,10 +7,10 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer082;
 
 import com.nventdata.pipeline.avro.model.NventMessage;
+import com.nventdata.pipeline.flink.environment.ExecutionEnvironmentFactory;
 import com.nventdata.pipeline.flink.mapper.TopicSelectorMapFunction;
 import com.nventdata.pipeline.flink.serialization.NventMessageSchema;
 import com.nventdata.pipeline.flink.sink.MessageForwarderSink;
-import com.nventdata.pipline.flink.environment.ExecutionEnvironmentFactory;
 
 
 public class FlinkKafkaTopicSelector {

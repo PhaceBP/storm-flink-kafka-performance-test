@@ -11,8 +11,8 @@ import org.apache.flink.streaming.connectors.kafka.KafkaSink;
 import org.apache.flink.streaming.util.serialization.JavaDefaultStringSchema;
 
 import com.nventdata.pipeline.avro.model.NventMessage;
+import com.nventdata.pipeline.flink.environment.ExecutionEnvironmentFactory;
 import com.nventdata.pipeline.flink.mapper.TopsicSelectorEvaluationResultHolder;
-import com.nventdata.pipline.flink.environment.ExecutionEnvironmentFactory;
 
 /*
  * This class is responsible for send a message to the Kafka broker

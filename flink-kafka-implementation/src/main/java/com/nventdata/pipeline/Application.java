@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import com.nventdata.pipeline.configuration.ApplicationConfig;
+import com.nventdata.pipeline.flink.environment.ExecutionEnvironmentFactory;
 import com.nventdata.pipeline.flink.messagerouter.FlinkKafkaTopicSelector;
-import com.nventdata.pipline.flink.environment.ExecutionEnvironmentFactory;
 
 @SpringBootApplication
 public class Application {

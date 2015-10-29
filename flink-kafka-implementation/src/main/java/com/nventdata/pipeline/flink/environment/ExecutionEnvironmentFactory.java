@@ -1,4 +1,4 @@
-package com.nventdata.pipline.flink.environment;
+package com.nventdata.pipeline.flink.environment;
 
 import java.util.Map;
 
