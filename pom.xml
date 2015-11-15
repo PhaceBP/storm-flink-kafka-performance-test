@@ -6,11 +6,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Parent project for aggregating submodules</name>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.2.7.RELEASE</version>
-	</parent>
 
 	<developers>
 		<developer>
@@ -20,8 +15,6 @@
 	</developers>
 
 	<properties>
-		<java.version>1.7</java.version>
-		<spring.boot.version>1.2.7.RELEASE</spring.boot.version>
 		<junit.version>4.12</junit.version>
 		<avro.version>1.7.7</avro.version>
 	</properties>
@@ -45,19 +38,16 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
 				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
+					<source>1.7</source>
+					<target>1.7</target>
+					<encoding>UTF-8</encoding>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<inherited>true</inherited>
 			</plugin>
 		</plugins>
-
 	</build>
-
 	<modules>
 		<module>storm-kafka-implementation</module>
 		<module>flink-kafka-implementation</module>

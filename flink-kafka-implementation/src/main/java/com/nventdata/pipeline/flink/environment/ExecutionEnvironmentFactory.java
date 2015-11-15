@@ -7,17 +7,12 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 import com.nventdata.pipeline.avro.model.NventMessage;
 import com.nventdata.pipeline.avro.serializer.NventMessageSerializer;
-import com.nventdata.pipeline.configuration.ApplicationConfig;
+import com.nventdata.pipeline.configuration.CommonConfiguration;
+import com.nventdata.pipeline.configuration.ConfigurationLoader;
 
 
 public class ExecutionEnvironmentFactory {
 
-	private static ApplicationConfig configuration;
-	
-	
-	public static void initConfig(ApplicationConfig config){
-		configuration = config;
-	}
 	
 	public static StreamExecutionEnvironment createStreamExecutionEvironment(){
 		
@@ -29,6 +24,7 @@ public class ExecutionEnvironmentFactory {
 	
 	public static ParameterTool createParameterTool(String topicName){
 
+		CommonConfiguration configuration = ConfigurationLoader.getInstance();
 		Map<String, String> kafkaProperties = new java.util.HashMap<>();
 		kafkaProperties.put("zookeeper.connect", configuration.getZookeperUrl());
 		kafkaProperties.put("bootstrap.servers", configuration.getKafkaUrl());

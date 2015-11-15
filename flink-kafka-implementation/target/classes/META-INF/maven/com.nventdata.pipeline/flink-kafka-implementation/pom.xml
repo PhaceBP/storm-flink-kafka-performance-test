@@ -7,26 +7,12 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>flink-kafka-implementation</artifactId>
-	<name>Flink - Kafka integration project based on Spring Boot</name>
+	<name>Flink - Kafka integration project</name>
 
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>log4j-over-slf4j</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.flink</groupId>
@@ -38,5 +24,5 @@
 			<artifactId>common-resources</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		</dependencies>
+	</dependencies>
 </project>
