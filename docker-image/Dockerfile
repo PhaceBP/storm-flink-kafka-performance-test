@@ -21,6 +21,8 @@ ENV KAFKA_SCALA_VERSION 2.10
 ENV JMX_PORT 7203 
 ENV KAFKA_RELEASE_ARCHIVE kafka_${KAFKA_SCALA_VERSION}-${KAFKA_VERSION}.tgz
 
+EXPOSE 2181
+
 # Register automatic start for zookeeper
 RUN /etc/init.d/zookeeper start
 
@@ -43,7 +45,7 @@ ENV PATH /kafka/bin:$PATH
 
 WORKDIR /kafka
 
-EXPOSE 9092 ${JMX_PORT} 
+EXPOSE 9092 ${JMX_PORT}
 
 VOLUME [ "/data", "/logs" ]
 
