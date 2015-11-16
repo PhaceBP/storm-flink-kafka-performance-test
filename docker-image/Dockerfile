@@ -29,8 +29,11 @@ RUN mkdir -p /kafka
 # Extract the archive
 RUN tar -xvzf /kafka.tgz --strip 1 -C /kafka
 
-# Extract the archive
+# Start Kafka
 RUN nohup /kafka/bin/kafka-server-start.sh /kafka/config/server.properties > /kafka/kafka.log 2>&1 &
+
+# Create topic
+RUN /kafka/bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partition 1 --topic neverwinter
 
 # Pull project from GitHub
 RUN git clone https://github.com/PhaceBP/storm-flink-kafka-performance-test.git
