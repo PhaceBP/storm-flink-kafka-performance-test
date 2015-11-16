@@ -17,11 +17,17 @@ RUN apt-get install -y zookeeperd
 # Set JAVA_HOME environment variable
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 
+# Register automatic start for zookeeper
+RUN /etc/init.d/zookeeper start
+
 # Download Apache Kafka
 RUN wget "http://mirror.cc.columbia.edu/pub/software/apache/kafka/0.8.2.2/kafka_2.11-0.8.2.2.tgz" -O /kafka.tgz
 
+# Create folder for kafka installation
+RUN mkdir -p /kafka
+
 # Extract the archive
-RUN tar -xvzf /kafka.tgz --strip 1
+RUN tar -xvzf /kafka.tgz --strip 1 -C /kafka
 
 # Extract the archive
 RUN nohup /kafka/bin/kafka-server-start.sh /kafka/config/server.properties > /kafka/kafka.log 2>&1 &
