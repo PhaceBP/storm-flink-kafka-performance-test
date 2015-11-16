@@ -3,7 +3,7 @@
 #
 FROM      ubuntu
 
-MAINTAINER Attila Balogh-Biró "attila.balogh86@gmail.com" 
+MAINTAINER Attila Balogh-BirÃ³ "attila.balogh86@gmail.com" 
 
 # Installing basic stuf: maven, git, jdk
 
@@ -30,7 +30,7 @@ RUN mkdir -p /kafka
 RUN tar -xvzf /kafka.tgz --strip 1 -C /kafka
 
 # Start Kafka
-RUN nohup /kafka/bin/kafka-server-start.sh /kafka/config/server.properties > /kafka/kafka.log 2>&1 &
+CMD nohup /kafka/bin/kafka-server-start.sh /kafka/config/server.properties > /kafka/kafka.log 2>&1 &
 
 # Create topic
 RUN /kafka/bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partition 1 --topic neverwinter
