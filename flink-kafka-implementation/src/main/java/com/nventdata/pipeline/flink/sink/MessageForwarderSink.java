@@ -8,11 +8,11 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.sink.SinkFunction;
 import org.apache.flink.streaming.connectors.kafka.KafkaSink;
-import org.apache.flink.streaming.util.serialization.JavaDefaultStringSchema;
 
 import com.nventdata.pipeline.avro.model.NventMessage;
 import com.nventdata.pipeline.flink.environment.ExecutionEnvironmentFactory;
 import com.nventdata.pipeline.flink.mapper.TopsicSelectorEvaluationResultHolder;
+import com.nventdata.pipeline.flink.serialization.NventMessageSchema;
 
 /*
  * This class is responsible for send a message to the Kafka broker
@@ -34,13 +34,13 @@ public class MessageForwarderSink implements SinkFunction<TopsicSelectorEvaluati
 		// parse user parameters
 		ParameterTool parameterTool = ExecutionEnvironmentFactory.createParameterTool(value.getSelectedTopicName());
 
-		List<String> messageList = new ArrayList<>();
+		List<NventMessage> messageList = new ArrayList<>();
 		messageList.add(NventMessage.newBuilder().setId(value.getId()).setData(value.getData())
-				.setRandom(value.getRandom()).build().toString());
+				.setRandom(value.getRandom()).build());
 
-		DataStream<String> messageStream = env.fromCollection(messageList);
+		DataStream<NventMessage> messageStream = env.fromCollection(messageList);
 
-		messageStream.addSink(new KafkaSink<String>(parameterTool.getRequired("bootstrap.servers"), parameterTool.getRequired("topic"), new JavaDefaultStringSchema()));
+		messageStream.addSink(new KafkaSink<NventMessage>(parameterTool.getRequired("bootstrap.servers"), parameterTool.getRequired("topic"), new NventMessageSchema()));
 
 		env.execute();
 	}
