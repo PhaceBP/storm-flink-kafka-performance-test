@@ -27,7 +27,7 @@ RUN tar -xvzf /kafka.tgz --strip 1
 RUN nohup /kafka/bin/kafka-server-start.sh /kafka/config/server.properties > /kafka/kafka.log 2>&1 &
 
 # Pull project from GitHub
-RUN git clone https://PhaceBP:admin123@github.com/PhaceBP/storm-flink-kafka-performance-test.git
+RUN git clone https://github.com/PhaceBP/storm-flink-kafka-performance-test.git
 
 # Pull forked Nvent project from GitHub
 RUN git clone https://github.com/PhaceBP/interviewQuestions.git
