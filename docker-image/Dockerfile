@@ -43,7 +43,9 @@ ENV PATH /kafka/bin:$PATH
 
 WORKDIR /kafka
 
-EXPOSE 9092 ${JMX_PORT} VOLUME [ "/data", "/logs" ]
+EXPOSE 9092 ${JMX_PORT} 
+
+VOLUME [ "/data", "/logs" ]
 
 CMD ["nohup /kafka/bin/kafka-server-start.sh /kafka/config/server.properties > /kafka/kafka.log 2>&1 &"]
 
