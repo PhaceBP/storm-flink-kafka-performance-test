@@ -3,7 +3,7 @@
 #
 FROM      ubuntu
 
-MAINTAINER Attila Balogh-BirÃ³ "attila.balogh86@gmail.com" 
+MAINTAINER Attila Balogh-Biró "attila.balogh86@gmail.com" 
 
 # Installing basic stuf: maven, git, jdk
 
@@ -28,6 +28,9 @@ RUN nohup /kafka/bin/kafka-server-start.sh /kafka/config/server.properties > /ka
 
 # Pull project from GitHub
 RUN git clone https://PhaceBP:admin123@github.com/PhaceBP/storm-flink-kafka-performance-test.git
+
+# Pull forked Nvent project from GitHub
+RUN git clone https://github.com/PhaceBP/interviewQuestions.git
 
 # Step into the project root dir 
 WORKDIR "/storm-flink-kafka-performance-test"
