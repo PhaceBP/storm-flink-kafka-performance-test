@@ -14,23 +14,38 @@ RUN apt-get install -y maven
 RUN apt-get install -y wget
 RUN apt-get install -y zookeeperd
 
-# Set JAVA_HOME environment variable
+# Set environment variables
 ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
+ENV KAFKA_VERSION 0.8.2.2 
+ENV KAFKA_SCALA_VERSION 2.10 
+ENV JMX_PORT 7203 
+ENV KAFKA_RELEASE_ARCHIVE kafka_${KAFKA_SCALA_VERSION}-${KAFKA_VERSION}.tgz
 
 # Register automatic start for zookeeper
 RUN /etc/init.d/zookeeper start
 
-# Download Apache Kafka
-RUN wget "http://mirror.cc.columbia.edu/pub/software/apache/kafka/0.8.2.2/kafka_2.11-0.8.2.2.tgz" -O /kafka.tgz
-
 # Create folder for kafka installation
-RUN mkdir -p /kafka
+RUN mkdir -p /kafka /data /logs
 
-# Extract the archive
-RUN tar -xvzf /kafka.tgz --strip 1 -C /kafka
+ADD http://www.us.apache.org/dist/kafka/${KAFKA_VERSION}/${KAFKA_RELEASE_ARCHIVE} /tmp/
 
-# Start Kafka
-CMD nohup /kafka/bin/kafka-server-start.sh /kafka/config/server.properties > /kafka/kafka.log 2>&1 &
+# Install kafka
+RUN tar -zx -C /kafka --strip 1 -f ${KAFKA_RELEASE_ARCHIVE} && \
+  rm -rf kafka_*
+  
+ADD config /kafka/config
+ADD start.sh /start.sh
+
+# Set up a user to run Kafka 
+RUN groupadd kafka && \
+  useradd -d /kafka -g kafka -s /bin/false kafka && \
+  chown -R kafka:kafka /kafka /data /logs
+USER kafka 
+ENV PATH /kafka/bin:$PATH 
+WORKDIR /kafka
+
+EXPOSE 9092 ${JMX_PORT} VOLUME [ "/data", "/logs" ]
+CMD ["/start.sh"]
 
 # Create topic
 RUN /kafka/bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partition 1 --topic neverwinter
