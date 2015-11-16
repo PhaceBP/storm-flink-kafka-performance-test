@@ -49,7 +49,7 @@ EXPOSE 9092 ${JMX_PORT}
 
 VOLUME [ "/data", "/logs" ]
 
-CMD ["nohup /kafka/bin/kafka-server-start.sh /kafka/config/server.properties > /kafka/kafka.log 2>&1 &"]
+CMD nohup /kafka/bin/kafka-server-start.sh /kafka/config/server.properties > /kafka/kafka.log 2>&1 &
 
 # Create topic
 RUN /kafka/bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partition 1 --topic neverwinter
