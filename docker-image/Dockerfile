@@ -30,7 +30,7 @@ RUN mkdir -p /kafka /data /logs
 ADD http://www.us.apache.org/dist/kafka/${KAFKA_VERSION}/${KAFKA_RELEASE_ARCHIVE} /tmp/
 
 # Install kafka
-RUN tar -xvzf ${KAFKA_RELEASE_ARCHIVE} --strip 1 -C /kafka
+RUN tar -xvzf /tmp/${KAFKA_RELEASE_ARCHIVE} --strip 1 -C /kafka
   
 ADD config /kafka/config
 ADD start.sh /start.sh
