@@ -31,20 +31,21 @@ ADD http://www.us.apache.org/dist/kafka/${KAFKA_VERSION}/${KAFKA_RELEASE_ARCHIVE
 
 # Install kafka
 RUN tar -xvzf /tmp/${KAFKA_RELEASE_ARCHIVE} --strip 1 -C /kafka
-  
-ADD config /kafka/config
-ADD start.sh /start.sh
 
 # Set up a user to run Kafka 
 RUN groupadd kafka && \
   useradd -d /kafka -g kafka -s /bin/false kafka && \
   chown -R kafka:kafka /kafka /data /logs
+
 USER kafka 
-ENV PATH /kafka/bin:$PATH 
+
+ENV PATH /kafka/bin:$PATH
+
 WORKDIR /kafka
 
 EXPOSE 9092 ${JMX_PORT} VOLUME [ "/data", "/logs" ]
-CMD ["/start.sh"]
+
+CMD ["nohup /kafka/bin/kafka-server-start.sh /kafka/config/server.properties > /kafka/kafka.log 2>&1 &"]
 
 # Create topic
 RUN /kafka/bin/kafka-topics.sh --zookeeper localhost:2181 --create --replication-factor 1 --partition 1 --topic neverwinter
